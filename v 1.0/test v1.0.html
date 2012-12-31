@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+      <title> Reddit map </title>
+      <link rel="shortcut icon" href="worldtravel.ico">
+     
+     <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #mapcontainer { height: 100% }
+    </style>
+     <script language="javascript" type="text/javascript" src="jquery.js"></script>
+     <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjo2me595PvtH7IxgvnO6BnIyl6lnFFd4&sensor=false">
+    </script>
+ </head>
+ <body>
+     <div id="mapcontainer"  style="width: 100%; height: 100%;">
+          <script type="text/javascript" language="javascript">
+ 			var titleArr=[],  eachWordString;
+ 			var geocoder;
+        	     var map, i=0, contentString=[], id, title,  infoWindow=null, tempContent, tempMarker, tempInfoWindow , flag=0, uniqueArr=[];
+               var foundPlaces = [];
+               var markers=[], ids=[], urlArr=[];
+               var places = ["Asia","Africa","Australia","Europe","North America","South America","East Asia", "Afghanistan","Albania","Algeria","Andorra","Angola","Anguilla","Antarctica","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Botswana","Brazil","Brunei","Bulgaria","Burundi","Cambodia","Cameroon","Canada","Chad","Chile","China","Colombia","Comoros","Croatia","Cuba","Cyprus","Denmark","Djibouti","Dominica","Ecuador","Egypt","Eritrea","Estonia","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guadeloupe","Guam","Guatemala","Guernsey","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Martinique","Mauritania","Mauritius","Mayotte","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Burma","Namibia","Nauru","Nepal","Netherlands","Nicaragua","Niger","Nigeria","Niue","Norway","Oman","Pakistan","Palau","Panama","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Reunion","Samoa","Senegal","Serbia","Seychelles","Singapore","Slovakia","Slovenia","Somalia","Spain","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tokelau","Tonga","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","Uruguay","Uzbekistan","Vanuatu","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe", "American Samoa","Bouvet Island","Burkina Faso","Cape Verde","Cayman Islands","Christmas Island","Cook Islands","Costa Rica","Czech Republic","Cote d’Ivoire","Dominican Republic","East Germany","El Salvador","Equatorial Guinea","Falkland Islands","Faroe Islands","French Guiana","French Polynesia","Johnston Island","Marshall Islands","Metropolitan France","Midway Islands","Netherlands Antilles","Neutral Zone","New Caledonia","New Zealand","Norfolk Island","North Korea","North Vietnam","Palestinian Territories","Pitcairn Islands","Puerto Rico","Saint Barthélemy","Saint Helena","Saint Lucia","Saint Martin","San Marino","Saudi Arabia","Sierra Leone","Solomon Islands","South Africa","South Korea","Sri Lanka","United Kingdom","United States","Vatican City","Wake Island","Western Sahara","Aland Islands","Antigua and Barbuda","Bosnia and Herzegovina","British Antarctic Territory","British Indian Ocean Territory","British Virgin Islands","Canton and Enderbury Islands","Central African Republic","Congo - Brazzaville","Congo - Kinshasa","Dronning Maud Land","French Southern Territories","French Southern and Antarctic Territories","Heard Island and McDonald Islands","Hong Kong SAR China","Isle of Man","Macau SAR China","Northern Mariana Islands","Pacific Islands Trust Territory","Panama Canal Zone","Papua New Guinea","People's Democratic Republic of Yemen","Saint Kitts and Nevis","Saint Pierre and Miquelon","Saint Vincent and the Grenadines","Serbia and Montenegro","South Georgia and the South Sandwich Islands","Svalbard and Jan Mayen","Sao Tome and Principe","Trinidad and Tobago","Turks and Caicos Islands","U.S. Minor Outlying Islands","U.S. Miscellaneous Pacific Islands","U.S. Virgin Islands","Union of Soviet Socialist Republics","United Arab Emirates","Wallis and Futuna","Cocos Islands", "Keeling Islands","Alaska", "Juneau", "Arizona", "Phoenix", "Arkansas", "Little Rock", "California", "Sacramento", "Colorado", "Denver", "Connecticut", "Hartford", "Delaware", "Dover", "Florida", "Tallahassee", "Georgia", "Atlanta", "Hawaii", "Honolulu", "Idaho", "Boise", "Illinois", "Springfield", "Indiana", "Indianapolis", "Iowa", "Des Moines", "Kansas", "Topeka", "Kentucky", "Frankfort", "Louisiana", "Baton Rouge", "Maine", "Augusta", "Maryland", "Annapolis", "Massachusetts", "Boston", "Michigan", "Lansing", "Minnesota", "St. Paul", "Mississippi", "Jackson", "Missouri", "Jefferson City", "Montana", "Helena", "Nebraska", "Lincoln", "Nevada", "Carson City", "New Hampshire", "Concord", "New Jersey", "Trenton", "New Mexico", "Santa Fe", "New York", "Albany", "North Carolina", "Raleigh", "North Dakota", "Bismarck", "Ohio", "Columbus", "Oklahoma", "Oklahoma City", "Oregon", "Salem", "Pennsylvania", "Harrisburg", "Rhode Island", "Providence", "South Carolina", "Columbia", "South Dakota", "Pierre", "Tennessee", "Nashville", "Texas", "Austin", "Utah", "Salt Lake City", "Vermont", "Montpelier", "Virginia", "Richmond", "Washington", "Olympia", "West Virginia", "Charleston", "Wisconsin", "Madison", "Wyoming", "Cheyenne","Kabul","Tirana","Algiers","Andorra la Vella","Luanda","Saint John's","Buenos Aires","Yerevan","Canberra","Vienna","Baku","Nassau","Manama","Dhaka","Bridgetown","Minsk","Brussels","Belmopan","Porto-Novo","Thimphu", "Bolivia", "La Paz", "Bosnia and Herzegovina", "Sarajevo", "Botswana", "Gaborone", "Brazil", "Brasilia", "Brunei", "Bandar Seri Begawan", "Bulgaria", "Sofia", "Burkina Faso", "Ouagadougou", "Burundi", "Bujumbura", "Cambodia", "Phnom Penh", "Cameroon", "Yaounde", "Canada", "Ottawa", "Cape Verde", "Praia", "Central African Republic", "Bangui", "Chad", "N'Djamena", "Chile", "Santiago", "China", "Beijing", "Colombia", "Bogota", "Comoros", "Moroni", "Congo, Republic of the", "Brazzaville", "Congo, Democratic Republic of the", "Kinshasa", "Costa Rica", "San Jose", "Cote d'Ivoire", "Yamoussoukro", "Croatia", "Zagreb", "Cuba", "Havana", "Cyprus", "Nicosia", "Czech Republic", "Prague", "Denmark", "Copenhagen", "Djibouti", "Djibouti", "Dominica", "Roseau", "Dominican Republic", "Santo Domingo", "East Timor", "Dili", "Ecuador", "Quito", "Egypt", "Cairo", "El Salvador", "San Salvador", "Equatorial Guinea", "Malabo", "Eritrea", "Asmara", "Estonia", "Tallinn", "Ethiopia", "Addis Ababa", "Fiji", "Suva", "Finland", "Helsinki", "France", "Paris", "Gabon", "Libreville", "The Gambia", "Banjul", "Georgia", "Tbilisi", "Germany", "Berlin", "Ghana", "Accra", "Greece", "Athens", "Grenada", "Saint George's", "Guatemala", "Guatemala City", "Guinea", "Conakry", "Guinea-Bissau", "Bissau", "Guyana", "Georgetown", "Haiti", "Port-au-Prince", "Honduras", "Tegucigalpa", "Hungary", "Budapest", "Iceland", "Reykjavik", "India", "New Delhi", "Indonesia", "Jakarta", "Iran", "Tehran", "Iraq", "Baghdad", "Ireland", "Dublin", "Israel", "Jerusalem*", "Italy", "Rome", "Jamaica", "Kingston", "Japan", "Tokyo", "Jordan", "Amman", "Kazakhstan", "Astana", "Kenya", "Nairobi", "Kiribati", "Tarawa Atoll", "Korea, North", "Pyongyang", "Korea, South", "Seoul", "Kosovo", "Pristina", "Kuwait", "Kuwait City", "Kyrgyzstan", "Bishkek", "Laos", "Vientiane", "Latvia", "Riga", "Lebanon", "Beirut", "Lesotho", "Maseru", "Liberia", "Monrovia", "Libya", "Tripoli", "Liechtenstein", "Vaduz", "Lithuania", "Vilnius", "Luxembourg", "Luxembourg", "Macedonia", "Skopje", "Madagascar", "Antananarivo", "Malawi", "Lilongwe", "Malaysia", "Kuala Lumpur", "Maldives", "Male", "Mali", "Bamako", "Malta", "Valletta", "Marshall Islands", "Majuro", "Mauritania", "Nouakchott", "Mauritius", "Port Louis", "Mexico", "Mexico City", "Micronesia, Federated States of", "Palikir", "Moldova", "Chisinau", "Monaco", "Monaco", "Mongolia", "Ulaanbaatar", "Montenegro", "Podgorica", "Morocco", "Rabat", "Mozambique", "Maputo", "Myanmar", "Rangoon", "Burma", "Yangon", "Namibia", "Windhoek", "Nauru", "Nepal", "Kathmandu", "Netherlands", "Amsterdam", "New Zealand", "Wellington", "Nicaragua", "Managua", "Niger", "Niamey", "Nigeria", "Abuja", "Norway", "Oslo", "Oman", "Muscat", "Pakistan", "Islamabad", "Palau", "Melekeok", "Panama", "Panama City", "Papua New Guinea", "Port Moresby", "Paraguay", "Asuncion", "Peru", "Lima", "Philippines", "Manila", "Poland", "Warsaw", "Portugal", "Lisbon", "Qatar", "Doha", "Romania", "Bucharest", "Russia", "Moscow", "Rwanda", "Kigali", "Saint Kitts and Nevis", "Basseterre", "Saint Lucia", "Castries", "Saint Vincent and the Grenadines", "Kingstown", "Samoa", "Apia", "San Marino", "San Marino", "Sao Tome and Principe", "Sao Tome", "Saudi Arabia", "Riyadh", "Senegal", "Dakar", "Serbia", "Belgrade", "Seychelles", "Victoria", "Sierra Leone", "Freetown", "Singapore", "Singapore", "Slovakia", "Bratislava", "Slovenia", "Ljubljana", "Solomon Islands", "Honiara", "Somalia", "Mogadishu", "South Africa", "Pretoria", "South Sudan", "Juba", "Spain", "Madrid", "Sri Lanka", "Colombo", "Sudan", "Khartoum", "Suriname", "Paramaribo", "Swaziland", "Mbabane", "Sweden", "Stockholm", "Switzerland", "Bern", "Syria", "Damascus", "Taiwan", "Taipei", "Tajikistan", "Dushanbe", "Tanzania", "Dar es Salaam", "Thailand", "Bangkok", "Togo", "Lome", "Tonga", "Nuku'alofa", "Trinidad and Tobago", "Port-of-Spain", "Tunisia", "Tunis", "Turkey", "Ankara", "Turkmenistan", "Ashgabat", "Tuvalu", "Vaiaku village, Funafuti province", "Uganda", "Kampala", "Ukraine", "Kyiv", "United Arab Emirates", "Abu Dhabi", "United Kingdom", "London", "United States of America", "Washington D.C.", "Uruguay", "Montevideo", "Uzbekistan", "Tashkent", "Vanuatu", "Port-Vila", "Vatican City ", "Vatican City", "Venezuela", "Caracas", "Vietnam", "Hanoi", "Yemen", "Sanaa", "Zambia", "Lusaka", "Zimbabwe", "Harare", "USA","UAE","USSR","US"];
+                //add states, state capitals, top 100 cities in USA, abbreviations, 
+                //Us states and captials, all country capitals: ADDED
+
+                  uniqueArr = places.filter(function(elem, pos) {
+                  return places.indexOf(elem) == pos;
+                    });
+                  places=uniqueArr;
+
+                $(function(){ 
+                  var latlng = new google.maps.LatLng(0, 0);
+                  var mapOptions =    {
+                                           zoom: 2,
+                                           center: latlng,
+                                           mapTypeId: google.maps.MapTypeId.ROADMAP
+                                      }         
+                  map = new google.maps.Map(document.getElementById("mapcontainer"), mapOptions);
+                  geocoder = new google.maps.Geocoder();
+                  //map loaded
+                  
+
+                	$.getJSON("http://www.reddit.com/r/travel/.json?jsonp=?", function(data){
+                         $.each(data["data"]["children"], function(i,item){
+                              title = item["data"]["title"];
+                              id = item["data"]["id"];
+                              $.each(places, function(k, eachPlace) {
+                              	if(title.indexOf(eachPlace)!=-1){
+                                    urlArr.push(item["data"]["url"]);
+                              	   	foundPlaces.push(eachPlace);
+                                    ids.push(id);
+                                    titleArr.push(title);
+                                    //Once a place is found, skip to next title: FUTURE IMPROVEMENT
+                                    //Also, add more reddit queries
+
+                                  }
+                               });
+                          });
+                         alert(foundPlaces);
+
+                  
+                  //places recognized and stored in foundPlaces. The plotting function follows
+
+
+
+                  function plot(foundPlaces) {
+                    $.each(foundPlaces, function(k, placeToPlot){
+                      geocoder.geocode( { 'address': placeToPlot }, function(results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+
+                          contentString =  '<div>' + '<p><a href="'+urlArr[k] +'" target="_blank">'+ titleArr[k]+ '</p>'+'</div>';
+                          tempMarker = new google.maps.Marker({
+                                                       map: map,
+                                                       position: results[0].geometry.location,
+                                                       html: contentString,
+                                                       url: "http:reddit.com/r/travel/" +ids[k] 
+                                                      });
+                          
+                          markers.push(tempMarker);
+                          
+                       
+
+                      google.maps.event.addListener(markers[k], "click", function () {
+                        //alert(this.html);
+                        infoWindow.setContent(this.html);
+                        infoWindow.open(map, this);
+                        window.open(this.url, '_newtab');
+                      });
+
+                       google.maps.event.addListener(markers[k], "mouseover", function () {
+                        infoWindow.setContent(this.html);
+                        infoWindow.open(map, this);
+                       });
+
+                       
+
+                     }
+                      });
+                    });
+
+                  }
+                   
+                  
+
+
+                  
+                  plot(foundPlaces);
+                  infoWindow = new google.maps.InfoWindow({
+                    content: "loading..."
+                  });
+
+                  
+
+                  
+
+                });
+              });
+
+
+</script>
+</div>
+</body>
+</html>
