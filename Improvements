@@ -2,3 +2,4 @@ Remove short-names states or add spaces around their names inside quotes. Eg.("T
 Add a form entry for number of reddit queries.
 Add a form entry for a specific country only and show reddits only from that country(This deosn't need a map though)
 If there's a hot page, add a button and when clicked take to add another hmtl file for map of that hot page.
+Add spiderfy -- very important!
